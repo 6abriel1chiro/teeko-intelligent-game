@@ -94,6 +94,27 @@ Installation
 ## Roadmap
 
 - PROBLEM SOLUTION
+
+To program Teeko smart game, we follow the following steps:
+
+- Create the structure of the Teeko board and define the rules of the game, as explained in the statement.
+- Create a function that allows the user to choose the color of the tiles they want to play.
+- Create a function for the human's turn, where the program will receive the position of the token that the user wants to move and the direction in which they want to move it. This function should also check if the move is valid and, if not, print an error message.
+- Create a function for the computer's turn, where the program must decide which token to move and in which direction. To do this, we must implement a search algorithm that allows us to find the best possible move in a game tree.
+- Implement a heuristic that determines the utility value of a state. The heuristics must take into account factors such as the position of the pieces on the board and their proximity to the corners and square formation. The logic behind the heuristic should be to maximize the probability of winning the game.
+- Define a maximum height to expand the game tree and experiment with different ones until you find the height that allows the program to make decisions in less than 10 seconds.
+- Implement the algorithm MinMax + α −β pruning and MinMaxWithDepth(cut −off) to find the best possible move in the game tree.
+
+# definir una heurística que nos permita evaluar el valor de un estado. Para ello, podemos considerar los siguientes factores:
+
+Distancia a las esquinas: las fichas que están más cerca de las esquinas tienen más posibilidades de formar un cuadrado. Por lo tanto, podemos asignar un valor mayor a las fichas que estén más cerca de las esquinas.
+
+Fichas en línea: si hay tres fichas en línea en una dirección, la siguiente ficha que se coloque allí formará un cuadrado. Por lo tanto, podemos asignar un valor mayor a las fichas que estén en línea con otras fichas.
+
+Fichas adyacentes: las fichas que están juntas tienen más posibilidades de formar un cuadrado. Por lo tanto, podemos asignar un valor mayor a las fichas que estén adyacentes a otras fichas.
+
+Fichas bloqueadas: si una ficha está bloqueada y no puede moverse en ninguna dirección, es menos valiosa que una ficha que puede moverse en varias direcciones. Por lo tanto, podemos asignar un valor menor a las fichas bloqueadas.
+
 - EXPERIMENTS
 - CONCLUSION
 
