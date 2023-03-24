@@ -64,11 +64,26 @@ def get_user_move():
 # Define the function for getting the computer's move
 
 
+""" 
 def get_computer_move(state):
     global start_time
     start_time = time.time()
-    move = alpha_beta_search(state, MAX_DEPTH)
+    #move = alpha_beta_search(state, MAX_DEPTH)
     return move
+"""
+
+
+def get_computer_move(state):
+    # Define the available columns and rows
+    columns = ['A', 'B', 'C', 'D']
+    rows = [1, 2, 3, 4]
+    # Choose a random column, row and direction
+    column = random.choice(columns)
+    row = random.choice(rows)
+    direction = random.choice(['NW', 'NE', 'SW', 'SE'])
+    # Return the random move
+    return f"{column}{row} {direction}"
+
 
 # Define the function for playing the game
 
@@ -93,12 +108,14 @@ def play_game(board):
     else:
         computer_player = BLACK
 
-    player = random.choice([BLACK, WHITE])
+    player = random.choice([computer_player, human_player])
 
     # Loop until the game is over
     while True:
         # Let the human player make a move
         if player == human_player:
+            print('HUMAN TURN')
+
             move = get_user_move()
             board = make_move(board, move, player)
             display_board(board)
@@ -107,6 +124,8 @@ def play_game(board):
                 return
         # Let the computer make a move
         else:
+            print('AI TURN')
+
             move = get_computer_move(state)
             board = make_move(board, move, player)
             display_board(board)
