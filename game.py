@@ -23,9 +23,12 @@ def create_board():
 
 def make_move(board, move, player):
     col, row, direction = move[0], int(move[1]), move[3:]
-    new_board = [row[:] for row in board]
     i = row - 1
     j = ord(col) - ord('A')
+    if i < 0 or i > 3 or j < 0 or j > 3:
+        raise ValueError(
+            "Invalid move: position out of range ")
+    new_board = [row[:] for row in board]
     new_board[i][j] = None
     if direction == 'NW':
         new_board[i-1][j-1] = player
