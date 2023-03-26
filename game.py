@@ -128,7 +128,28 @@ def get_computer_move(state):
 
 
 # Define the function for playing the game
-
+def minimax(board, depth, maximizing_player, alpha, beta):
+    # Comprobar si se ha llegado al estado final o si se ha alcanzado el límite de profundidad
+    if depth == 0 or terminal_test(board):
+        return utility(board)
+    
+    # Si el jugador es 'Max', elegir el movimiento que maximiza el resultado de minimax
+    if maximizing_player:
+        best_value = float('-inf')
+        for move in possible_moves(board):
+            result_board = result(board, move, player)
+            value = minimax(result_board, depth-1, 'Min')
+            best_value = max(best_value, value)
+        return best_value
+    
+    # Si el jugador es 'Min', elegir el movimiento que minimiza el resultado de minimax
+    else:
+        best_value = float('inf')
+        for move in possible_moves(board):
+            result_board = result(board, move, player)
+            value = minimax(result_board, depth-1, 'Max')
+            best_value = min(best_value, value)
+        return best_value
 
 def play_game(state):
 
