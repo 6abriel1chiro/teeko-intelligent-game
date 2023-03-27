@@ -105,15 +105,15 @@ To program Teeko smart game, we follow the following steps:
 - Define a maximum height to expand the game tree and experiment with different ones until you find the height that allows the program to make decisions in less than 10 seconds.
 - Implement the algorithm MinMax + α −β pruning and MinMaxWithDepth(cut −off) to find the best possible move in the game tree.
 
-# definir una heurística que nos permita evaluar el valor de un estado. Para ello, podemos considerar los siguientes factores:
+# define a heuristic that allows us to evaluate the value of a state. To do this, we can consider the following factors:
 
-Distancia a las esquinas: las fichas que están más cerca de las esquinas tienen más posibilidades de formar un cuadrado. Por lo tanto, podemos asignar un valor mayor a las fichas que estén más cerca de las esquinas.
+Corner Distance – Tiles that are closer to the corners have a better chance of forming a square. Therefore, we can assign a higher value to the tiles that are closer to the corners.
 
-Fichas en línea: si hay tres fichas en línea en una dirección, la siguiente ficha que se coloque allí formará un cuadrado. Por lo tanto, podemos asignar un valor mayor a las fichas que estén en línea con otras fichas.
+Tiles in a Line: If there are three tiles in a line in one direction, the next tile placed there will form a square. Therefore, we can assign a higher value to tiles that are in line with other tiles.
 
-Fichas adyacentes: las fichas que están juntas tienen más posibilidades de formar un cuadrado. Por lo tanto, podemos asignar un valor mayor a las fichas que estén adyacentes a otras fichas.
+Adjacent Tiles – Tiles that are close together have a better chance of forming a square. Therefore, we can assign a higher value to tiles that are adjacent to other tiles.
 
-Fichas bloqueadas: si una ficha está bloqueada y no puede moverse en ninguna dirección, es menos valiosa que una ficha que puede moverse en varias direcciones. Por lo tanto, podemos asignar un valor menor a las fichas bloqueadas.
+Blocked Tokens: If a token is blocked and cannot move in any direction, it is less valuable than a token that can move in multiple directions. Therefore, we can assign a lower value to the locked tokens.
 
 - EXPERIMENTS
 - CONCLUSION
