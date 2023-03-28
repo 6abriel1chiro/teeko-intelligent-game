@@ -126,7 +126,48 @@ def get_computer_move(state):
     # Return the random move
     return f"{column}{row} {direction}"
 
-
+def terminal_test(board):
+    # Comprueba si hay una línea de cuatro fichas del mismo color (horizontal)
+    for row in range(7):
+        for col in range(4):
+            if board[row][col] == board[row][col+1] == board[row][col+2] == board[row][col+3]:
+                return True
+    
+    # Comprueba si hay una línea de cuatro fichas del mismo color (vertical)
+    for row in range(4):
+        for col in range(7):
+            if board[row][col] == board[row+1][col] == board[row+2][col] == board[row+3][col]:
+                return True
+    
+    # Comprueba si hay una ficha del mismo color en cada esquina 
+    
+            if board[0][0] == board[0][3] == board[3][0] == board[3][3] :
+                return True
+def calculate_score(board,jugador):
+    score = 0
+    for row in range(len(board)):
+        for col in range(len(board[row])):
+            if board[row][col] == jugador:
+                score += 1
+    return score
+def utility(board):
+    player1_score = calculate_score(board, 1)
+    player2_score = calculate_score(board, -1)
+    return player1_score - player2_score
+def is_legal_move(board, row, col, player):
+    if i < 0 or i > 3 or j < 0 or j > 3:
+        return False
+    return True
+def possible_moves(board, player):
+    moves = []
+    for row in range(len(board)):
+        for col in range(len(board[row])):
+            if board[row][col] == None:
+                # La celda está vacía, se puede realizar un movimiento
+                if is_legal_move(board, row, col, player):
+                    # El movimiento es legal, se agrega a la lista de movimientos
+                    moves.append((row, col))
+    return moves
 # Define the function for playing the game
 def minimax(board, depth, maximizing_player, alpha, beta):
     # Comprobar si se ha llegado al estado final o si se ha alcanzado el límite de profundidad
@@ -138,7 +179,7 @@ def minimax(board, depth, maximizing_player, alpha, beta):
         best_value = float('-inf')
         for move in possible_moves(board):
             result_board = result(board, move, player)
-            value = minimax(result_board, depth-1, 'Min')
+            value = minimax(result_board, depth-1, False, alpha, beta)
             best_value = max(best_value, value)
         return best_value
     
@@ -147,7 +188,7 @@ def minimax(board, depth, maximizing_player, alpha, beta):
         best_value = float('inf')
         for move in possible_moves(board):
             result_board = result(board, move, player)
-            value = minimax(result_board, depth-1, 'Max')
+            value = minimax(result_board, depth-1, True, alpha,beta)
             best_value = min(best_value, value)
         return best_value
 
