@@ -1,6 +1,6 @@
 import time
 import random
-
+import math
 # Define the player colors
 BLACK = 'B'
 WHITE = 'W'
@@ -171,6 +171,16 @@ def possible_moves(board, player):
                     # El movimiento es legal, se agrega a la lista de movimientos
                     moves.append((row, col))
     return moves
+
+def result(board, move, player):
+    new_board = [row[:] for row in board]
+    for row in range(6, -1, -1):
+        if new_board[row][move] == None:
+            new_board[row][move] = player
+            break
+    return new_board
+
+
 # Define the function for playing the game
 def minimax(board, depth, maximizing_player, alpha, beta):
     # Comprobar si se ha llegado al estado final o si se ha alcanzado el límite de profundidad
@@ -179,21 +189,32 @@ def minimax(board, depth, maximizing_player, alpha, beta):
     
     # Si el jugador es 'Max', elegir el movimiento que maximiza el resultado de minimax
     if maximizing_player:
-        best_value = float('-inf')
+        best_action = None
+        value = -math.inf
         for move in possible_moves(board):
-            result_board = result(board, move, player)
-            value = minimax(result_board, depth-1, False, alpha, beta)
-            best_value = max(best_value, value)
-        return best_value
+            result_board = result(board, move, maximizing_player)
+            _, new_value = minimax(result_board,depth-1,maximizing_player, alpha, beta)
+            if new_value > value:
+                value = new_value
+                best_action = move
+            alpha = max(alpha, value)
+            if alpha >= beta:
+                break
+        return best_action, value
     
     # Si el jugador es 'Min', elegir el movimiento que minimiza el resultado de minimax
     else:
         best_value = float('inf')
         for move in possible_moves(board):
-            result_board = result(board, move, player)
-            value = minimax(result_board, depth-1, True, alpha,beta)
-            best_value = min(best_value, value)
-        return best_value
+            result_board = result(board, move, maximizing_player)
+            _, new_value = minimax(result_board,depth-1,maximizing_player, alpha, beta)
+            if new_value < value:
+                value = new_value
+                best_action = move
+            alpha = min(alpha, value)
+            if alpha >= beta:
+                break
+        return best_action, value
 
 def play_game(state):
 
