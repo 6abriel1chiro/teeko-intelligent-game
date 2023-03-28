@@ -154,7 +154,10 @@ def utility(board):
     player1_score = calculate_score(board, 1)
     player2_score = calculate_score(board, -1)
     return player1_score - player2_score
+
 def is_legal_move(board, row, col, player):
+    i = row - 1
+    j = ord(col) - ord('A')
     if i < 0 or i > 3 or j < 0 or j > 3:
         return False
     return True
