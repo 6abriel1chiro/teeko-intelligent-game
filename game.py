@@ -130,14 +130,11 @@ def get_computer_move(state):
 # Define the function for playing the game
 
 
-def play_game(state):
-
-    board = state[0]
-
-    # Display the game board
+def play_game():
+    board = create_board()
+    state = (board, BLACK)
     display_board(board)
 
-    # Let the user choose the color of the pieces
     human_player = None
     while human_player not in [BLACK, WHITE]:
         try:
@@ -146,52 +143,27 @@ def play_game(state):
         except ValueError:
             print('Invalid input. Please try again.')
 
-    # Define the human player and the computer player
     if human_player == BLACK:
         computer_player = WHITE
     else:
         computer_player = BLACK
 
     player = random.choice([computer_player, human_player])
-    print(player)
-    # Loop until the game is over
-    while True:
-        # Let the human player make a move
+
+    while not check_win(board, BLACK) and not check_win(board, WHITE):
         if player == human_player:
-            print('HUMAN TURN')
             move = get_user_move()
-            board = make_move(board, move, player)
-            display_board(board)
-            if check_win(board, player):
-                print('Congratulations! You win!')
-                return
-        # Let the computer make a move
         else:
-            print('AI TURN')
-
-            # state will helps us expand possible states in the future, right now it is not being used
             move = get_computer_move(state)
+            print("Computer's move: ", move)
+
+        try:
             board = make_move(board, move, player)
+            state = (board, get_opponent(player))
             display_board(board)
-            if check_win(board, player):
-                print('Sorry, you lose!, AI wins')
-                return
-        # Switch the player
-        player = WHITE if player == BLACK else BLACK
+        except ValueError as e:
+            print(e)
 
+        player = get_opponent(player)
 
-curent_player = None
-
-
-# Define the maximum search depth for Minimax
-MAX_DEPTH = 3
-
-# Define the start time for measuring the computer's response time
-start_time = None
-
-
-# Define the game board as a 4x4 matrix of None values
-board = create_board()
-# Define the game state
-state = (board, curent_player)
-play_game(state)
+    print('Game over! Winner: ', get_opponent(player))
