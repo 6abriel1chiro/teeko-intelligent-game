@@ -163,7 +163,7 @@ def utility(board):
 
 def is_legal_move(board, row, col, player):
     i = row - 1
-    j = ord(col) - ord('A')
+    j = col
     if i < 0 or i > 3 or j < 0 or j > 3:
         return False
     return True
@@ -180,7 +180,7 @@ def possible_moves(board, player):
 
 def result(board, move, player):
     new_board = [row[:] for row in board]
-    for row in range(6, -1, -1):
+    for row in range(4, -1, -1):
         if new_board[row][move] == None:
             new_board[row][move] = player
             break
@@ -197,7 +197,7 @@ def minimax(board, depth, maximizing_player, alpha, beta):
     if maximizing_player:
         best_action = None
         value = -math.inf
-        for move in possible_moves(board):
+        for move in possible_moves(board,maximizing_player):
             result_board = result(board, move, maximizing_player)
             _, new_value = minimax(result_board,depth-1,maximizing_player, alpha, beta)
             if new_value > value:
@@ -271,7 +271,7 @@ def play_game(state):
         # Switch the player
         player = WHITE if player == BLACK else BLACK
 
-def play_game2(state):
+def play_game2(state,depth):
 
     board = state[0]
 
@@ -296,7 +296,7 @@ def play_game2(state):
     player = random.choice([computer_player, human_player])
     print(player)
     # Loop until the game is over
-    while not terminal_test(state,player):
+    while not terminal_test(state[0],player):
         # Let the human player make a move
         if player == human_player:
             print('HUMAN TURN')
@@ -311,7 +311,7 @@ def play_game2(state):
             print('AI TURN')
 
             # state will helps us expand possible states in the future, right now it is not being used
-            ai_action, _ = minimax(state, 'Y', depth=4, alpha=-math.inf, beta=math.inf)
+            ai_action, _ = minimax(board,player, depth, alpha=-math.inf, beta=math.inf)
             board = make_move(board,ai_action, player)
             display_board(board)
             if check_win(board, player):
@@ -334,4 +334,4 @@ start_time = None
 board = create_board()
 # Define the game state
 state = (board, curent_player)
-play_game2(state)
+play_game2(state,MAX_DEPTH)
