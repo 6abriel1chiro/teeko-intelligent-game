@@ -161,30 +161,42 @@ def utility(board):
     player2_score = calculate_score(board, -1)
     return player1_score - player2_score
 
-def is_legal_move(board, row, col, player):
-    i = row - 1
-    j = col
-    if i < 0 or i > 3 or j < 0 or j > 3:
+def is_legal_move(board, row, col):
+    if col < 0 or col >= len(board[0]):
         return False
-    return True
+    
+    # Verificar si la columna está llena
+    if board[0][col] != None:
+        return False
+    
+    # Verificar si la jugada no hace que la ficha se salga del tablero
+    for row in range(len(board)):
+        if board[row][col] == None:
+            return True
+    return False
 def possible_moves(board, player):
     moves = []
+    directions = ['N', 'S', 'E', 'W', 'NW', 'NE', 'SW', 'SE']
     for row in range(len(board)):
         for col in range(len(board[row])):
             if board[row][col] == None:
                 # La celda está vacía, se puede realizar un movimiento
-                if is_legal_move(board, row, col, player):
+                    if is_legal_move(board, row, col):
                     # El movimiento es legal, se agrega a la lista de movimientos
-                    moves.append((row, col))
+                        for direction in directions:
+                            moves.append((row, col,direction))
     return moves
 
-def result(board, move, player):
-    new_board = [row[:] for row in board]
-    for row in range(4, -1, -1):
-        if new_board[row][move] == None:
-            new_board[row][move] = player
-            break
-    return new_board
+def result(board, move,player):
+    columns = ['A', 'B', 'C', 'D']
+    row = move[0]
+    columnchoose = move[1]
+    direction = move[2]
+    # Choose a random column, row and direction
+    column = columns[columnchoose]
+    # Return the random move
+    move2 = (row, column,direction)
+    return make_move(board,move2,player)
 
 
 # Define the function for playing the game
