@@ -126,23 +126,29 @@ def get_computer_move(state):
     # Return the random move
     return f"{column}{row} {direction}"
 
-def terminal_test(board):
-    # Comprueba si hay una línea de cuatro fichas del mismo color (horizontal)
-    for row in range(7):
-        for col in range(4):
-            if board[row][col] == board[row][col+1] == board[row][col+2] == board[row][col+3]:
+def terminal_test(board, player):
+    # Check rows
+    for i in range(4):
+        if board[i] == [player, player, player, player]:
+            return True
+
+    # Check columns
+    for j in range(4):
+        if [board[i][j] for i in range(4)] == [player, player, player, player]:
+            return True
+
+    # Check corners
+    if board[0][0] == player and board[0][3] == player and board[3][0] == player and board[3][3] == player:
+        return True
+
+    # Check square
+    for i in range(3):
+        for j in range(3):
+            if board[i][j] == player and board[i][j+1] == player and board[i+1][j] == player and board[i+1][j+1] == player:
                 return True
-    
-    # Comprueba si hay una línea de cuatro fichas del mismo color (vertical)
-    for row in range(4):
-        for col in range(7):
-            if board[row][col] == board[row+1][col] == board[row+2][col] == board[row+3][col]:
-                return True
-    
-    # Comprueba si hay una ficha del mismo color en cada esquina 
-    
-            if board[0][0] == board[0][3] == board[3][0] == board[3][3] :
-                return True
+
+    return False
+
 def calculate_score(board,jugador):
     score = 0
     for row in range(len(board)):
@@ -184,7 +190,7 @@ def result(board, move, player):
 # Define the function for playing the game
 def minimax(board, depth, maximizing_player, alpha, beta):
     # Comprobar si se ha llegado al estado final o si se ha alcanzado el límite de profundidad
-    if depth == 0 or terminal_test(board):
+    if depth == 0 or terminal_test(board, maximizing_player):
         return utility(board)
     
     # Si el jugador es 'Max', elegir el movimiento que maximiza el resultado de minimax
@@ -265,6 +271,54 @@ def play_game(state):
         # Switch the player
         player = WHITE if player == BLACK else BLACK
 
+def play_game2(state):
+
+    board = state[0]
+
+    # Display the game board
+    display_board(board)
+
+    # Let the user choose the color of the pieces
+    human_player = None
+    while human_player not in [BLACK, WHITE]:
+        try:
+            human_player = input(
+                "Choose your color ('B' for Black, 'W' for White): ").upper()
+        except ValueError:
+            print('Invalid input. Please try again.')
+
+    # Define the human player and the computer player
+    if human_player == BLACK:
+        computer_player = WHITE
+    else:
+        computer_player = BLACK
+
+    player = random.choice([computer_player, human_player])
+    print(player)
+    # Loop until the game is over
+    while not terminal_test(state,player):
+        # Let the human player make a move
+        if player == human_player:
+            print('HUMAN TURN')
+            move = get_user_move()
+            board = make_move(board, move, player)
+            display_board(board)
+            if check_win(board, player):
+                print('Congratulations! You win!')
+                return
+        # Let the computer make a move
+        else:
+            print('AI TURN')
+
+            # state will helps us expand possible states in the future, right now it is not being used
+            ai_action, _ = minimax(state, 'Y', depth=4, alpha=-math.inf, beta=math.inf)
+            board = make_move(board,ai_action, player)
+            display_board(board)
+            if check_win(board, player):
+                print('Sorry, you lose!, AI wins')
+                return
+        # Switch the player
+        player = WHITE if player == BLACK else BLACK
 
 curent_player = None
 
@@ -280,4 +334,4 @@ start_time = None
 board = create_board()
 # Define the game state
 state = (board, curent_player)
-play_game(state)
+play_game2(state)
