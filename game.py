@@ -22,30 +22,56 @@ def create_board():
 
 
 def make_move(board, move, player):
-    col, row, direction = move[0], int(move[1]), move[3:]
-    i = row - 1
-    j = ord(col) - ord('A')
+    col = ord(move[0]) - ord('A')
+    row = int(move[1]) - 1
+    direction = move[3:]
+    print(col, row, move)
+    i, j = row, col
     if i < 0 or i > 3 or j < 0 or j > 3:
         raise ValueError(
             "Invalid move: position out of range ")
     new_board = [row[:] for row in board]
     new_board[i][j] = None
     if direction == 'NW':
-        new_board[i-1][j-1] = player
+        for n in range(1, min(i+1, j+1)+1):
+            if new_board[i-n][j-n] is not None:
+                break
+            new_board[i-n][j-n] = player
     elif direction == 'N':
-        new_board[i-1][j] = player
+        for n in range(1, i+1):
+            if new_board[i-n][j] is not None:
+                break
+            new_board[i-n][j] = player
     elif direction == 'NE':
-        new_board[i-1][j+1] = player
+        for n in range(1, min(i+1, 4-j)+1):
+            if new_board[i-n][j+n] is not None:
+                break
+            new_board[i-n][j+n] = player
     elif direction == 'W':
-        new_board[i][j-1] = player
+        for n in range(1, j+1):
+            if new_board[i][j-n] is not None:
+                break
+            new_board[i][j-n] = player
     elif direction == 'E':
-        new_board[i][j+1] = player
+        for n in range(1, 4-j):
+            if new_board[i][j+n] is not None:
+                break
+            new_board[i][j+n] = player
     elif direction == 'SW':
-        new_board[i+1][j-1] = player
+        for n in range(1, min(4-i, j+1)+1):
+            if new_board[i+n][j-n] is not None:
+                break
+            new_board[i+n][j-n] = player
     elif direction == 'S':
-        new_board[i+1][j] = player
+        for n in range(1, 4-i):
+            if new_board[i+n][j] is not None:
+                break
+            new_board[i+n][j] = player
     elif direction == 'SE':
-        new_board[i+1][j+1] = player
+        for n in range(1, min(4-i, 4-j)+1):
+            if new_board[i+n][j+n] is not None:
+                break
+            new_board[i+n][j+n] = player
     return new_board
 
 
@@ -116,23 +142,34 @@ def get_computer_move(state):
 
 
 def get_computer_move(state):
-    # Define the available columns and rows
-    columns = ['A', 'B', 'C', 'D']
-    rows = [1, 2, 3, 4]
-    # Choose a random column, row and direction
-    column = random.choice(columns)
-    row = random.choice(rows)
-    direction = random.choice(['N', 'S', 'E', 'W', 'NW', 'NE', 'SW', 'SE'])
-    # Return the random move
-    return f"{column}{row} {direction}"
+    board = state[0]
+    player = state[1]
+    available_moves = []
+
+    for i in range(4):
+        for j in range(4):
+            if board[i][j] == player:
+                for direction in ['N', 'S', 'E', 'W', 'NW', 'NE', 'SW', 'SE']:
+                    move = f"{chr(ord('A') + j)}{i+1} {direction}"
+                    available_moves.append(move)
+
+    if not available_moves:
+        return None
+    print(type(random.choice(available_moves)))
+    return random.choice(available_moves)
+
+
+def get_opponent(player):
+    if player == BLACK:
+        return WHITE
+    else:
+        return BLACK
 
 
 # Define the function for playing the game
 
-
 def play_game():
     board = create_board()
-    state = (board, BLACK)
     display_board(board)
 
     human_player = None
@@ -149,6 +186,7 @@ def play_game():
         computer_player = BLACK
 
     player = random.choice([computer_player, human_player])
+    state = (board, player)
 
     while not check_win(board, BLACK) and not check_win(board, WHITE):
         if player == human_player:
@@ -159,6 +197,7 @@ def play_game():
 
         try:
             board = make_move(board, move, player)
+
             state = (board, get_opponent(player))
             display_board(board)
         except ValueError as e:
@@ -167,3 +206,6 @@ def play_game():
         player = get_opponent(player)
 
     print('Game over! Winner: ', get_opponent(player))
+
+
+play_game()

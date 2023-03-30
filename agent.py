@@ -8,6 +8,8 @@ from game import *
 """
 
 
+"""
+
 class State:
     def __init__(self):
         self.father = None
@@ -18,7 +20,7 @@ class State:
 
 
 def actions(self, state):
-    """Legal moves are any square not yet taken."""
+   # Legal moves are any square not yet taken.
     return state.moves
 
 
@@ -33,17 +35,17 @@ def result(self, state, move):
 
 
 def utility(self, state, player):
-    """Return the value to player; 1 for win, -1 for loss, 0 otherwise."""
+   # Return the value to player; 1 for win, -1 for loss, 0 otherwise.
     return state.utility if player == 'B' else -state.utility
 
 
 def terminal_test(self, state):
-    """A state is terminal if it is won or there are no empty squares."""
+    #A state is terminal if it is won or there are no empty squares.
     return state.utility != 0 or len(state.moves) == 0
 
 
 def compute_utility(self, board, move, player):
-    """If 'X' wins with this move, return 1; if 'O' wins return -1; else return 0."""
+    # If 'X' wins with this move, return 1; if 'O' wins return -1; else return 0.
     return 0
 
 
@@ -100,3 +102,66 @@ def alphabeta_cutoff_search(state, game, d=4, cutoff_test=None, eval_fn=None):
                 return v
             beta = min(beta, v)
         return v
+
+
+
+
+ """
+
+"""  
+def get_computer_move(state):
+    board = state[0]
+    player = state[1]
+    available_moves = []
+
+    for i in range(4):
+        for j in range(4):
+            if board[i][j] == player:
+                for direction in ['N', 'S', 'E', 'W', 'NW', 'NE', 'SW', 'SE']:
+                    move = f"{chr(ord('A') + j)}{i+1} {direction}"
+                    available_moves.append(move)
+
+    if not available_moves:
+        return None
+
+    max_depth = 3
+
+    def evaluation_function(state):
+        # Implement your own evaluation function here
+        return 0
+
+    def minimax(state, depth, alpha, beta, maximizing_player):
+        if depth == 0 or check_win(state[0], BLACK) or check_win(state[0], WHITE):
+            return evaluation_function(state), None
+
+        if maximizing_player:
+            max_value = float('-inf')
+            best_move = None
+            for move in available_moves:
+                new_state = make_move(state[0], move, player)
+                value, _ = minimax(new_state, depth-1, alpha, beta, False)
+                if value > max_value:
+                    max_value = value
+                    best_move = move
+                alpha = max(alpha, max_value)
+                if beta <= alpha:
+                    break
+            return max_value, best_move
+
+        else:
+            min_value = float('inf')
+            best_move = None
+            for move in available_moves:
+                new_state = make_move(state[0], move, get_opponent(player))
+                value, _ = minimax(new_state, depth-1, alpha, beta, True)
+                if value < min_value:
+                    min_value = value
+                    best_move = move
+                beta = min(beta, min_value)
+                if beta <= alpha:
+                    break
+            return min_value, best_move
+
+    _, best_move = minimax(state, max_depth, float('-inf'), float('inf'), True)
+    return best_move
+"""
