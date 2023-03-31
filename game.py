@@ -1,6 +1,6 @@
 import time
 import random
-
+# from agent import *
 # Define the player colors
 BLACK = 'B'
 WHITE = 'W'
@@ -21,77 +21,115 @@ def create_board():
 # Define the function for making a move on the board
 
 
+def directions_to_move(direction):
+    return 0
+
+
 def make_move(board, move, player):
     col = ord(move[0]) - ord('A')
     row = int(move[1]) - 1
     direction = move[3:]
-    print(col, row, move)
-    i, j = row, col
-    if i < 0 or i > 3 or j < 0 or j > 3:
+
+    row_copy, col_copy = row, col
+    previous_position = [row_copy, col_copy]
+
+    if row_copy < 0 or row_copy > 3 or col_copy < 0 or col_copy > 3:
         raise ValueError(
             "Invalid move: position out of range ")
+
     new_board = [row[:] for row in board]
-    new_board[i][j] = None
+
     if direction == 'NW':
-        for n in range(1, min(i+1, j+1)+1):
-            if new_board[i-n][j-n] is not None:
-                break
-            new_board[i-n][j-n] = player
+        for n in range(1, min(row_copy+1, col_copy+1)+1):
+            if row_copy-n >= 0 and col_copy >= 0:
+                if new_board[row_copy-n][col_copy-n] is not None:
+                    break
+                new_board[row_copy-n][col_copy-n] = player
+                new_board[previous_position[0]][previous_position[1]] = None
+                previous_position = [row_copy-n, col_copy-n]
+
     elif direction == 'N':
-        for n in range(1, i+1):
-            if new_board[i-n][j] is not None:
-                break
-            new_board[i-n][j] = player
+        for n in range(1, row_copy+1):
+            if row_copy-n >= 0:
+                if new_board[row_copy-n][col_copy] is not None:
+                    break
+                new_board[row_copy-n][col_copy] = player
+                new_board[previous_position[0]][previous_position[1]] = None
+                previous_position = [row_copy-n, col_copy]
+
     elif direction == 'NE':
-        for n in range(1, min(i+1, 4-j)+1):
-            if new_board[i-n][j+n] is not None:
-                break
-            new_board[i-n][j+n] = player
+        for n in range(1, min(row_copy+1, 4-col_copy)+1):
+            if row_copy-n >= 0 and col_copy < 4:
+                if new_board[row_copy-n][col_copy+n] is not None:
+                    break
+                new_board[row_copy-n][col_copy+n] = player
+                new_board[previous_position[0]][previous_position[1]] = None
+                previous_position = [row_copy-n, col_copy+n]
+
     elif direction == 'W':
-        for n in range(1, j+1):
-            if new_board[i][j-n] is not None:
-                break
-            new_board[i][j-n] = player
+        for n in range(1, col_copy+1):
+            if col_copy-n >= 0:
+                if new_board[row_copy][col_copy-n] is not None:
+                    break
+                new_board[row_copy][col_copy-n] = player
+                new_board[previous_position[0]][previous_position[1]] = None
+                previous_position = [row_copy, col_copy-n]
+
     elif direction == 'E':
-        for n in range(1, 4-j):
-            if new_board[i][j+n] is not None:
-                break
-            new_board[i][j+n] = player
+        for n in range(1, 4-col_copy):
+            if col_copy+n < 4:
+                if new_board[row_copy][col_copy+n] is not None:
+                    break
+                new_board[row_copy][col_copy+n] = player
+                new_board[previous_position[0]][previous_position[1]] = None
+                previous_position = [row_copy, col_copy+n]
+
     elif direction == 'SW':
-        for n in range(1, min(4-i, j+1)+1):
-            if new_board[i+n][j-n] is not None:
-                break
-            new_board[i+n][j-n] = player
+        for n in range(1, min(4-row_copy, col_copy+1)+1):
+            if row_copy+n < 4 and col_copy-n > 0:
+                if new_board[row_copy+n][col_copy-n] is not None:
+                    break
+                new_board[row_copy+n][col_copy-n] = player
+                new_board[previous_position[0]][previous_position[1]] = None
+                previous_position = [row_copy+n, col_copy-n]
+
     elif direction == 'S':
-        for n in range(1, 4-i):
-            if new_board[i+n][j] is not None:
-                break
-            new_board[i+n][j] = player
+        for n in range(1, 4-row_copy):
+            if row_copy+n < 4:
+                if new_board[row_copy+n][col_copy] is not None:
+                    break
+                new_board[row_copy+n][col_copy] = player
+                new_board[previous_position[0]][previous_position[1]] = None
+                previous_position = [row_copy+n, col_copy]
+
     elif direction == 'SE':
-        for n in range(1, min(4-i, 4-j)+1):
-            if new_board[i+n][j+n] is not None:
-                break
-            new_board[i+n][j+n] = player
+        for n in range(1, min(4-row_copy, 4-col_copy)+1):
+            if row_copy+n < 4 and col_copy+n < 4:
+                if new_board[row_copy+n][col_copy+n] is not None:
+                    break
+                new_board[row_copy+n][col_copy+n] = player
+                new_board[previous_position[0]][previous_position[1]] = None
+                previous_position = [row_copy+n, col_copy+n]
+
     return new_board
 
 
 # Define the function for checking if a player has won
 def check_win(board, player):
-    # Check rows
     for i in range(4):
         if board[i] == [player, player, player, player]:
             return True
 
-    # Check columns
     for j in range(4):
-        if [board[i][j] for i in range(4)] == [player, player, player, player]:
+        # if [board[x][j] for x in range(4)] == [player, player, player, player]:
+        #     return True
+        column = [board[x][j] for x in range(4)]
+        if len(set(column)) == 1 and len(column) == 4:
             return True
 
-    # Check corners
     if board[0][0] == player and board[0][3] == player and board[3][0] == player and board[3][3] == player:
         return True
 
-    # Check square
     for i in range(3):
         for j in range(3):
             if board[i][j] == player and board[i][j+1] == player and board[i+1][j] == player and board[i+1][j+1] == player:
@@ -124,7 +162,7 @@ def get_user_move():
     while True:
         try:
             move_str = input('Enter your move (e.g., C2 SE): ')
-            return move_str
+            return move_str.upper()
         except ValueError:
             print('Invalid move. Please try again.')
 
@@ -137,8 +175,63 @@ def get_computer_move(state):
     start_time = time.time()
     move = alpha_beta_search(state, MAX_DEPTH)
     return move
-
 """
+
+
+def calculate_score(board, player):
+    score = 0
+    for row in range(len(board)):
+        for col in range(len(board[row])):
+            if board[row][col] == player:
+                score += 1
+    return score
+
+
+def evaluation_function(state):
+    board = state[0]
+    player = state[1]
+    player1_score = calculate_score(board, player)
+    player2_score = calculate_score(board, player)
+    return player1_score - player2_score
+
+
+def minimax(state, depth, alpha, beta, maximizing_player, available_moves):
+    board = state[0]
+    player = state[1]
+    if depth == 0 or check_win(state[0], BLACK) or check_win(state[0], WHITE):
+        return evaluation_function(state), None
+
+    if maximizing_player:
+        max_value = float('-inf')
+        best_move = None
+        for move in available_moves:
+            new_board = make_move(board, move, get_opponent(player))
+            new_state = [new_board, get_opponent(player)]
+            value, _ = minimax(new_state, depth-1, alpha,
+                               beta, False, available_moves)
+            if value > max_value:
+                max_value = value
+                best_move = move
+            alpha = max(alpha, max_value)
+            if beta <= alpha:
+                break
+        return max_value, best_move
+
+    else:
+        min_value = float('inf')
+        best_move = None
+        for move in available_moves:
+            new_board = make_move(board, move, get_opponent(player))
+            new_state = [new_board, get_opponent(player)]
+            value, _ = minimax(new_state, depth-1, alpha,
+                               beta, True, available_moves)
+            if value < min_value:
+                min_value = value
+                best_move = move
+            beta = min(beta, min_value)
+            if beta <= alpha:
+                break
+        return min_value, best_move
 
 
 def get_computer_move(state):
@@ -155,8 +248,11 @@ def get_computer_move(state):
 
     if not available_moves:
         return None
-    print(type(random.choice(available_moves)))
-    return random.choice(available_moves)
+
+    max_depth = 3
+    _, best_move = minimax(state, max_depth, float(
+        '-inf'), float('inf'), True, available_moves)
+    return best_move
 
 
 def get_opponent(player):
@@ -185,7 +281,9 @@ def play_game():
     else:
         computer_player = BLACK
 
-    player = random.choice([computer_player, human_player])
+    # player = random.choice([computer_player, human_player])
+    player = human_player
+    # player = computer_player
     state = (board, player)
 
     while not check_win(board, BLACK) and not check_win(board, WHITE):

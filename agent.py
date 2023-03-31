@@ -107,8 +107,8 @@ def alphabeta_cutoff_search(state, game, d=4, cutoff_test=None, eval_fn=None):
 
 
  """
+""" 
 
-"""  
 def get_computer_move(state):
     board = state[0]
     player = state[1]
@@ -164,4 +164,5 @@ def get_computer_move(state):
 
     _, best_move = minimax(state, max_depth, float('-inf'), float('inf'), True)
     return best_move
+
 """
