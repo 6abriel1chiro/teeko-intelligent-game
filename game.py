@@ -244,7 +244,7 @@ def alpha_beta(board, depth, alpha, beta, maximizing_player,color):
         best_move = None
         for move in possible_moves(board,color):
             result_board = result(board, move,color)
-            _, temp_value = alpha_beta(result_board, depth-1, alpha, beta, False)
+            _, temp_value = alpha_beta(result_board, depth-1, alpha, beta, False,color)
             if temp_value > value:
                 value = temp_value
                 best_move = move
@@ -257,7 +257,7 @@ def alpha_beta(board, depth, alpha, beta, maximizing_player,color):
         best_move = None
         for move in possible_moves(board,color):
             result_board = result(board, move,color)
-            _, temp_value = alpha_beta(result_board, depth-1, alpha, beta, True)
+            _, temp_value = alpha_beta(result_board, depth-1, alpha, beta, True,color)
             if temp_value < value:
                 value = temp_value
                 best_move = move
@@ -344,6 +344,7 @@ def play_game2(depth):
 # Definir el tablero
     board = create_board()
     ai_color = ''
+    ai = True
     # Definir el color del jugador humano
     player_color = input("¿Qué color desea usar? (B/W) ").upper()
     # Definir quién empieza a jugar
@@ -374,8 +375,9 @@ def play_game2(depth):
             beta=math.inf
             #move = minmax(board,depth, ai_color,0,alpha,beta)
             #print(move)
-            move = alpha_beta(board,depth,alpha,beta,ai_color)
-            board = result(board, move[0], move[1], move[2], 'W' if player_color == 'B' else 'B')
+            move,_ = alpha_beta(board,depth,alpha,beta,ai,ai_color)
+            print(move)
+            board = result(board,move, 'W' if player_color == 'B' else 'B')
             current_player = 'human'
 
 # Imprimir el resultado final del juego
