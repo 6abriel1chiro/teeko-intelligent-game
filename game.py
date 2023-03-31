@@ -9,8 +9,8 @@ WHITE = 'W'
 def create_board():
     return [['B', 'V', 'V', 'W'],
             ['V', 'B', 'W', 'V'],
-            ['V', 'W', 'B', 'B'],
-            ['W', 'V', 'V', 'V']]
+            ['V', 'W', 'B', 'V'],
+            ['W', 'V', 'V', 'B']]
 
 # Define the function for making a move on the board
 
@@ -161,6 +161,11 @@ def utility(board):
 
 def is_possible_move(board, row, col, direction,color):
     # Verificar que la posición dada sea válida en el tablero
+    if(color == 'B'):
+        color_contrario = 'W'
+    else:
+        color_contrario = 'B'
+    
     if not (0 <= row < len(board) and 0 <= col < len(board[0])):
         return False
 
@@ -184,21 +189,21 @@ def is_possible_move(board, row, col, direction,color):
         return False
 
     # Verificar que no haya otra ficha del mismo jugador en la casilla a la que se quiere mover
-    if direction == 'N' and board[row-1][col] == color:
+    if direction == 'N' and (board[row-1][col] == color or board[row-1][col] == color_contrario):
         return False
-    if direction == 'S' and board[row+1][col] == color:
+    if direction == 'S' and (board[row+1][col] == color or board[row+1][col] == color_contrario):
         return False
-    if direction == 'W' and board[row][col-1] == color:
+    if direction == 'W' and (board[row][col-1] == color or board[row][col-1] == color_contrario):
         return False
-    if direction == 'E' and board[row][col+1] == color:
+    if direction == 'E' and (board[row][col+1] == color or board[row][col+1] == color_contrario):
         return False
-    if direction == 'NW' and board[row-1][col-1] == color:
+    if direction == 'NW' and (board[row-1][col-1] == color or board[row-1][col-1] == color_contrario):
         return False
-    if direction == 'NE' and board[row-1][col+1] == color:
+    if direction == 'NE' and (board[row-1][col+1] == color or board[row-1][col+1] == color_contrario):
         return False
-    if direction == 'SW' and board[row+1][col-1] == color:
+    if direction == 'SW' and (board[row+1][col-1] == color or board[row+1][col-1] == color_contrario):
         return False
-    if direction == 'SE' and board[row+1][col+1] == color:
+    if direction == 'SE' and (board[row+1][col+1] == color or board[row+1][col+1] == color_contrario):
         return False
 
     return True
