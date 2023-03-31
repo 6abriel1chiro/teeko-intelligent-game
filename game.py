@@ -1,6 +1,6 @@
 import time
 import random
-
+# from agent import *
 # Define the player colors
 BLACK = 'B'
 WHITE = 'W'
@@ -22,30 +22,81 @@ def create_board():
 
 
 def make_move(board, move, player):
-    col, row, direction = move[0], int(move[1]), move[3:]
-    i = row - 1
-    j = ord(col) - ord('A')
+    col = ord(move[0]) - ord('A')
+    row = int(move[1]) - 1
+    direction = move[3:]
+    
+    i, j = row, col
+    previous_position = [i, j]
     if i < 0 or i > 3 or j < 0 or j > 3:
         raise ValueError(
             "Invalid move: position out of range ")
     new_board = [row[:] for row in board]
-    new_board[i][j] = None
+     #posible cambio
     if direction == 'NW':
-        new_board[i-1][j-1] = player
+        for n in range(1, min(i+1, j+1)+1):
+            if new_board[i-n][j-n] is not None:
+                break
+            new_board[i-n][j-n] = player
+            new_board[previous_position[0]][previous_position[1]] = None
+            previous_position = [i-n, j-n]
+
     elif direction == 'N':
-        new_board[i-1][j] = player
+        for n in range(1, i+1):
+            if new_board[i-n][j] is not None:
+                break
+            new_board[i-n][j] = player
+            new_board[previous_position[0]][previous_position[1]] = None
+            previous_position = [i-n, j]
+
     elif direction == 'NE':
-        new_board[i-1][j+1] = player
+        for n in range(1, min(i+1, 4-j)+1):
+            if new_board[i-n][j+n] is not None:
+                break
+            new_board[i-n][j+n] = player
+            new_board[previous_position[0]][previous_position[1]] = None
+            previous_position = [i-n, j+n]
+
     elif direction == 'W':
-        new_board[i][j-1] = player
+        for n in range(1, j+1):
+            if new_board[i][j-n] is not None:
+                break
+            new_board[i][j-n] = player
+            new_board[previous_position[0]][previous_position[1]] = None
+            previous_position = [i, j-n]
+
     elif direction == 'E':
-        new_board[i][j+1] = player
+        for n in range(1, 4-j):
+            if new_board[i][j+n] is not None:
+                break
+            new_board[i][j+n] = player
+            new_board[previous_position[0]][previous_position[1]] = None
+            previous_position = [i, j+n]
+
     elif direction == 'SW':
-        new_board[i+1][j-1] = player
+        for n in range(1, min(4-i, j+1)+1):
+            if new_board[i+n][j-n] is not None:
+                break
+            new_board[i+n][j-n] = player
+            new_board[previous_position[0]][previous_position[1]] = None
+            previous_position = [i+n, j-n]
+
     elif direction == 'S':
-        new_board[i+1][j] = player
+        for n in range(1, 4-i):
+            if new_board[i+n][j] is not None:
+                break
+            new_board[i+n][j] = player
+            new_board[previous_position[0]][previous_position[1]] = None
+            previous_position = [i+n, j]
+
     elif direction == 'SE':
-        new_board[i+1][j+1] = player
+        for n in range(1, min(4-i, 4-j)+1):
+            if new_board[i+n][j+n] is not None:
+                break
+            new_board[i+n][j+n] = player
+            new_board[previous_position[0]][previous_position[1]] = None
+            previous_position = [i+n, j+n]
+
     return new_board
 
 
@@ -115,29 +166,94 @@ def get_computer_move(state):
 """
 
 
+def calculate_score(board, player):
+    score = 0
+    for row in range(len(board)):
+        for col in range(len(board[row])):
+            if board[row][col] == player:
+                score += 1
+    return score
+
+
+def evaluation_function(state):
+    board = state[0]
+    player = state[1]
+    player1_score = calculate_score(board, player)
+    player2_score = calculate_score(board, player)
+    return player1_score - player2_score
+
+
+def minimax(state, depth, alpha, beta, maximizing_player, available_moves):
+    board = state[0]
+    player = state[1]
+    if depth == 0 or check_win(state[0], BLACK) or check_win(state[0], WHITE):
+        return evaluation_function(state), None
+
+    if maximizing_player:
+        max_value = float('-inf')
+        best_move = None
+        for move in available_moves:
+            new_state = make_move(state[0], move, player)
+            value, _ = minimax(new_state, depth-1, alpha,
+                               beta, False, available_moves)
+            if value > max_value:
+                max_value = value
+                best_move = move
+            alpha = max(alpha, max_value)
+            if beta <= alpha:
+                break
+        return max_value, best_move
+
+    else:
+        min_value = float('inf')
+        best_move = None
+        for move in available_moves:
+            new_state = make_move(state[0], move, get_opponent(player))
+            value, _ = minimax(new_state, depth-1, alpha,
+                               beta, True, available_moves)
+            if value < min_value:
+                min_value = value
+                best_move = move
+            beta = min(beta, min_value)
+            if beta <= alpha:
+                break
+        return min_value, best_move
+
+
 def get_computer_move(state):
-    # Define the available columns and rows
-    columns = ['A', 'B', 'C', 'D']
-    rows = [1, 2, 3, 4]
-    # Choose a random column, row and direction
-    column = random.choice(columns)
-    row = random.choice(rows)
-    direction = random.choice(['N', 'S', 'E', 'W', 'NW', 'NE', 'SW', 'SE'])
-    # Return the random move
-    return f"{column}{row} {direction}"
+    board = state[0]
+    player = state[1]
+    available_moves = []
+
+    for i in range(4):
+        for j in range(4):
+            if board[i][j] == player:
+                for direction in ['N', 'S', 'E', 'W', 'NW', 'NE', 'SW', 'SE']:
+                    move = f"{chr(ord('A') + j)}{i+1} {direction}"
+                    available_moves.append(move)
+
+    if not available_moves:
+        return None
+
+    max_depth = 3
+    _, best_move = minimax(state, max_depth, float(
+        '-inf'), float('inf'), True, available_moves)
+    return best_move
+
+
+def get_opponent(player):
+    if player == BLACK:
+        return WHITE
+    else:
+        return BLACK
 
 
 # Define the function for playing the game
 
-
-def play_game(state):
-
-    board = state[0]
-
-    # Display the game board
+def play_game():
+    board = create_board()
     display_board(board)
 
-    # Let the user choose the color of the pieces
     human_player = None
     while human_player not in [BLACK, WHITE]:
         try:
@@ -146,52 +262,33 @@ def play_game(state):
         except ValueError:
             print('Invalid input. Please try again.')
 
-    # Define the human player and the computer player
     if human_player == BLACK:
         computer_player = WHITE
     else:
         computer_player = BLACK
 
-    player = random.choice([computer_player, human_player])
-    print(player)
-    # Loop until the game is over
-    while True:
-        # Let the human player make a move
+    # player = random.choice([computer_player, human_player])
+    player = human_player
+    state = (board, player)
+
+    while not check_win(board, BLACK) and not check_win(board, WHITE):
         if player == human_player:
-            print('HUMAN TURN')
             move = get_user_move()
-            board = make_move(board, move, player)
-            display_board(board)
-            if check_win(board, player):
-                print('Congratulations! You win!')
-                return
-        # Let the computer make a move
         else:
-            print('AI TURN')
-
-            # state will helps us expand possible states in the future, right now it is not being used
             move = get_computer_move(state)
+            print("Computer's move: ", move)
+
+        try:
             board = make_move(board, move, player)
+
+            state = (board, get_opponent(player))
             display_board(board)
-            if check_win(board, player):
-                print('Sorry, you lose!, AI wins')
-                return
-        # Switch the player
-        player = WHITE if player == BLACK else BLACK
+        except ValueError as e:
+            print(e)
+
+        player = get_opponent(player)
+
+    print('Game over! Winner: ', get_opponent(player))
 
 
-curent_player = None
-
-
-# Define the maximum search depth for Minimax
-MAX_DEPTH = 3
-
-# Define the start time for measuring the computer's response time
-start_time = None
-
-
-# Define the game board as a 4x4 matrix of None values
-board = create_board()
-# Define the game state
-state = (board, curent_player)
-play_game(state)
+play_game()
