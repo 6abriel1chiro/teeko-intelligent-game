@@ -253,7 +253,7 @@ def AlphaBetaPrunning(state, alpha, beta, maximizing_player, available_moves):
                 best_move = move
             beta = min(beta, min_value)
             if beta <= alpha:
-                print(board) #me cago en todos mis muertos
+                print(board)
 
         return min_value, best_move
 
