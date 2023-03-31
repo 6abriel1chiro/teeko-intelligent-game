@@ -267,30 +267,6 @@ def alpha_beta(board, depth, alpha, beta, maximizing_player,color):
         return best_move, value
 
 # Define the function for playing the game
-def minmax(board, depth,color, utility, alpha, beta):
-    if depth == 0 or terminal_test(board,color):
-        return utility(board)
-
-    if color:
-        v = -math.inf
-        for move in possible_moves(board,color):
-            new_board = result(board, move,color)
-            print(new_board)
-            v = max(v, minmax(new_board, depth - 1, alpha, beta, False, utility))
-            alpha = max(alpha, v)
-            if beta <= alpha:
-                break  # poda alpha-beta
-        return v
-    else:
-        v = math.inf
-        for move in possible_moves(board,color):
-            new_board = result(board, move,color)
-            print(new_board)
-            v = min(v, minmax(new_board, depth - 1, alpha, beta, True, utility))
-            beta = min(beta, v)
-            if beta <= alpha:
-                break  # poda alpha-beta
-        return v
 def play_game(state):
 
     board = state[0]
