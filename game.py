@@ -31,10 +31,12 @@ def make_move(board, move, player):
     if i < 0 or i > 3 or j < 0 or j > 3:
         raise ValueError(
             "Invalid move: position out of range ")
+    
     new_board = [row[:] for row in board]
-     #posible cambio
+
     if direction == 'NW':
         for n in range(1, min(i+1, j+1)+1):
+
             if new_board[i-n][j-n] is not None:
                 break
             new_board[i-n][j-n] = player
@@ -42,7 +44,7 @@ def make_move(board, move, player):
             previous_position = [i-n, j-n]
 
     elif direction == 'N':
-        for n in range(1, i+1):
+        for n in range(0, i+1):
             if new_board[i-n][j] is not None:
                 break
             new_board[i-n][j] = player
@@ -102,21 +104,20 @@ def make_move(board, move, player):
 
 # Define the function for checking if a player has won
 def check_win(board, player):
-    # Check rows
     for i in range(4):
         if board[i] == [player, player, player, player]:
             return True
 
-    # Check columns
     for j in range(4):
-        if [board[i][j] for i in range(4)] == [player, player, player, player]:
+        # if [board[x][j] for x in range(4)] == [player, player, player, player]:
+        #     return True
+        column = [board[x][j] for x in range(4)]
+        if len(set(column)) == 1 and len(column) == 4:
             return True
 
-    # Check corners
     if board[0][0] == player and board[0][3] == player and board[3][0] == player and board[3][3] == player:
         return True
 
-    # Check square
     for i in range(3):
         for j in range(3):
             if board[i][j] == player and board[i][j+1] == player and board[i+1][j] == player and board[i+1][j+1] == player:
@@ -149,7 +150,7 @@ def get_user_move():
     while True:
         try:
             move_str = input('Enter your move (e.g., C2 SE): ')
-            return move_str
+            return move_str.upper()
         except ValueError:
             print('Invalid move. Please try again.')
 
@@ -193,7 +194,8 @@ def minimax(state, depth, alpha, beta, maximizing_player, available_moves):
         max_value = float('-inf')
         best_move = None
         for move in available_moves:
-            new_state = make_move(state[0], move, player)
+            new_board = make_move(board, move, get_opponent(player))
+            new_state = [new_board, get_opponent(player)]
             value, _ = minimax(new_state, depth-1, alpha,
                                beta, False, available_moves)
             if value > max_value:
@@ -208,7 +210,8 @@ def minimax(state, depth, alpha, beta, maximizing_player, available_moves):
         min_value = float('inf')
         best_move = None
         for move in available_moves:
-            new_state = make_move(state[0], move, get_opponent(player))
+            new_board = make_move(board, move, get_opponent(player))
+            new_state = [new_board, get_opponent(player)]
             value, _ = minimax(new_state, depth-1, alpha,
                                beta, True, available_moves)
             if value < min_value:
@@ -269,6 +272,7 @@ def play_game():
 
     # player = random.choice([computer_player, human_player])
     player = human_player
+    # player = computer_player
     state = (board, player)
 
     while not check_win(board, BLACK) and not check_win(board, WHITE):
