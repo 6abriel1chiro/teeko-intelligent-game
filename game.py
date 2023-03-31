@@ -230,12 +230,13 @@ def evaluation_function(state):
 #     value = player1_score - player2_score
 #     return value
 
-def AlphaBetaPrunningDepth(state, depth, alpha, beta, maximizing_player, available_moves):
+def AlphaBetaPrunningDepth(state, depth, alpha, beta, maximizing_player, available_moves, counter):
     board = state[0]
     player = state[1]
+    counter += 1
 
     if depth == 0 or (check_win(state[0], BLACK)>0) or (check_win(state[0], WHITE)>0) :
-        return evaluation_function(state), 0
+        return evaluation_function(state), 0,counter
     
     if maximizing_player:
         max_value = float('-inf')
@@ -243,15 +244,15 @@ def AlphaBetaPrunningDepth(state, depth, alpha, beta, maximizing_player, availab
         for move in available_moves:
             new_board = make_move(board, move, player)
             new_state = [new_board, get_opponent(player)]
-            value, _ = AlphaBetaPrunningDepth(new_state, depth-1, alpha,
-                               beta, False, available_moves)
+            value, _ ,counter= AlphaBetaPrunningDepth(new_state, depth-1, alpha,
+                               beta, False, available_moves,counter)
             if value > max_value:
                 max_value = value
                 best_move = move
             alpha = max(alpha, max_value)
             if beta <= alpha:
                 break
-        return max_value, best_move
+        return max_value, best_move,counter
 
     else:
         min_value = float('inf')
@@ -259,22 +260,22 @@ def AlphaBetaPrunningDepth(state, depth, alpha, beta, maximizing_player, availab
         for move in available_moves:
             new_board = make_move(board, move, player)
             new_state = [new_board, get_opponent(player)]
-            value, _ = AlphaBetaPrunningDepth(new_state, depth-1, alpha,
-                               beta, True, available_moves)
+            value, _ ,counter= AlphaBetaPrunningDepth(new_state, depth-1, alpha,
+                               beta, True, available_moves,counter)
             if value < min_value:
                 min_value = value
                 best_move = move
             beta = min(beta, min_value)
             if beta <= alpha:
                 break
-        return min_value, best_move
+        return min_value, best_move,counter
 
 
 def get_computer_move(state):
     board = state[0]
     player = state[1]
     available_moves = []
-
+    counter = 0
     for i in range(4):
         for j in range(4):
             if board[i][j] == player:
@@ -286,8 +287,9 @@ def get_computer_move(state):
         return None
 
     max_depth = 3
-    _, best_move = AlphaBetaPrunningDepth(state, max_depth, float(
-        '-inf'), float('inf'), True, available_moves)
+    _, best_move,counter = AlphaBetaPrunningDepth(state, max_depth, float(
+        '-inf'), float('inf'), True, available_moves,counter)
+    print("Number of states expanded: ", counter)
     return best_move
 
 
