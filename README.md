@@ -80,9 +80,9 @@ Installation
    git clone https://github.com/6abriel1chiro/teeko-intelligent-game
    ```
 
-2. Install requirements
+2. enter folder and run game.py
    ```py
-   pip install -r requirements.txt
+   python3 game.py
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -113,10 +113,27 @@ Tiles in a Line: If there are three tiles in a line in one direction, the next t
 
 Adjacent Tiles – Tiles that are close together have a better chance of forming a square. Therefore, we can assign a higher value to tiles that are adjacent to other tiles.
 
-Blocked Tokens: If a token is blocked and cannot move in any direction, it is less valuable than a token that can move in multiple directions. Therefore, we can assign a lower value to the locked tokens.
-
 - EXPERIMENTS
-- CONCLUSION
+
+  - Alpha Beta Pruning
+
+    - turns vs prunes graph:  
+       #########
+    - turns vs prunes (right to left):  
+       #########
+
+  - Alpha Beta with cutoff :
+
+    - First heuristic : weighted board
+
+    - Second heuristic : adjacencies + weighted board
+
+- CONCLUSIONS
+  - heuristic 1 vs 2
+    ########
+  - alpga beta pruning (no cutoff)
+    ########
+  - MinMax + α −βpruning & MinMaxWithDepth(cut −off) (turns vs expanded states)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 <!-- CONTACT -->
