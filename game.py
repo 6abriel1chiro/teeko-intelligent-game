@@ -58,7 +58,7 @@ def make_move(board, move, player):
 
     elif direction == 'NE':
         for n in range(1, min(row_copy+1, 4-col_copy)+1):
-            if row_copy-n >= 0 and col_copy < 4:
+            if row_copy-n >= 0 and col_copy+n < 4:
                 if new_board[row_copy-n][col_copy+n] is not None:
                     break
                 new_board[row_copy-n][col_copy+n] = player
@@ -115,15 +115,13 @@ def make_move(board, move, player):
 
 # Define the function for checking if a player has won
 def check_win(board, player):
+    
     for i in range(4):
         if board[i] == [player, player, player, player]:
             return True
 
     for j in range(4):
-        # if [board[x][j] for x in range(4)] == [player, player, player, player]:
-        #     return True
-        column = [board[x][j] for x in range(4)]
-        if len(set(column)) == 1 and len(column) == 4:
+        if [board[x][j] for x in range(4)] == [player, player, player, player]:
             return True
 
     if board[0][0] == player and board[0][3] == player and board[3][0] == player and board[3][3] == player:
@@ -167,47 +165,48 @@ def get_user_move():
 
 # Define the function for getting the computer's move
 
-
-""" 
-def get_computer_move(state):
-    global start_time
-    start_time = time.time()
-    move = alpha_beta_search(state, MAX_DEPTH)
-    return move
-
-"""
-
-
-def calculate_score(board, player):
-    score = 0
-    for row in range(len(board)):
-        for col in range(len(board[row])):
-            if board[row][col] == player:
-                score += 1
-    return score
-
+# # def calculate_score(board, player):
+# #     score = 0
+# #     for row in range(len(board)):
+# #         for col in range(len(board[row])):
+# #             if board[row][col] == player:
+# #                 score += 1
+# #     return score
 
 def evaluation_function(state):
     board = state[0]
-    player = state[1]
-    player1_score = calculate_score(board, player)
-    player2_score = calculate_score(board, player)
+    weights = [[3, 2, 2, 3],
+                [2, 1, 1, 2],
+                [2, 1, 1, 2],
+                [3, 2, 2, 3]]
+
+    player1_score = 0
+    player2_score = 0
+
+    for i in range(4):
+        for j in range(4):
+            if board[i][j] == BLACK:
+                player1_score += weights[i][j]
+            elif board[i][j] == WHITE:
+                player2_score += weights[i][j]
     return player1_score - player2_score
+    
 
 
-def minimax(state, depth, alpha, beta, maximizing_player, available_moves):
+def AlphaBetaPrunningDepth(state, depth, alpha, beta, maximizing_player, available_moves):
     board = state[0]
     player = state[1]
-    if depth == 0 or check_win(state[0], BLACK) or check_win(state[0], WHITE):
-        return evaluation_function(state), None
 
+    if depth == 0 or (check_win(state[0], BLACK)>0) or (check_win(state[0], WHITE)>0) :
+        return evaluation_function(state), 0
+    
     if maximizing_player:
         max_value = float('-inf')
         best_move = None
         for move in available_moves:
-            new_board = make_move(board, move, get_opponent(player))
+            new_board = make_move(board, move, player)
             new_state = [new_board, get_opponent(player)]
-            value, _ = minimax(new_state, depth-1, alpha,
+            value, _ = AlphaBetaPrunningDepth(new_state, depth-1, alpha,
                                beta, False, available_moves)
             if value > max_value:
                 max_value = value
@@ -221,9 +220,9 @@ def minimax(state, depth, alpha, beta, maximizing_player, available_moves):
         min_value = float('inf')
         best_move = None
         for move in available_moves:
-            new_board = make_move(board, move, get_opponent(player))
+            new_board = make_move(board, move, player)
             new_state = [new_board, get_opponent(player)]
-            value, _ = minimax(new_state, depth-1, alpha,
+            value, _ = AlphaBetaPrunningDepth(new_state, depth-1, alpha,
                                beta, True, available_moves)
             if value < min_value:
                 min_value = value
@@ -250,7 +249,7 @@ def get_computer_move(state):
         return None
 
     max_depth = 3
-    _, best_move = minimax(state, max_depth, float(
+    _, best_move = AlphaBetaPrunningDepth(state, max_depth, float(
         '-inf'), float('inf'), True, available_moves)
     return best_move
 
@@ -281,8 +280,8 @@ def play_game():
     else:
         computer_player = BLACK
 
-    # player = random.choice([computer_player, human_player])
-    player = human_player
+    player = random.choice([computer_player, human_player])
+    # player = human_player
     # player = computer_player
     state = (board, player)
 
