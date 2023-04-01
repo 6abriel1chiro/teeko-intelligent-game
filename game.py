@@ -75,7 +75,7 @@ def directions_to_move(direction, new_board, row_copy, col_copy, previous_positi
 
     elif direction == 'SW':
         for n in range(1, min(4-row_copy, col_copy+1)+1):
-            if row_copy+n < 4 and col_copy-n > 0:
+            if row_copy+n < 4 and col_copy-n >=0:
                 if new_board[row_copy+n][col_copy-n] is not None:
                     break
                 new_board[row_copy+n][col_copy-n] = player
@@ -165,6 +165,8 @@ def get_user_move():
             return move_str.upper()
         except ValueError:
             print('Invalid move. Please try again.')
+                
+            
 
 
 def is_possible_move(direction, row, col, board, player):
@@ -197,6 +199,7 @@ def is_possible_move(direction, row, col, board, player):
 
     return True
 
+
 def find_adjacencies(board):
     number_b_adj = 0
     number_w_adj = 0
@@ -212,14 +215,6 @@ def find_adjacencies(board):
                     number_b_adj+=1
                 if board[i][j-1] == BLACK:
                     number_b_adj+=1
-                if board[i+1][j-1] == BLACK:
-                    number_b_adj+=1
-                if board[i+1][j+1] == BLACK:
-                    number_b_adj+=1
-                if board[i-1][j+1] == BLACK:
-                    number_b_adj+=1
-                if board[i-1][j-1] == BLACK:
-                    number_b_adj+=1
 
             elif board[i][j] == WHITE:
                 if board[i+1][j] == WHITE:
@@ -230,6 +225,7 @@ def find_adjacencies(board):
                     number_w_adj+=1
                 if board[i][j-1] == WHITE:
                     number_w_adj+=1
+
     return number_b_adj, number_w_adj
 
 def evaluation_function(state):
@@ -368,8 +364,6 @@ def play_game():
         computer_player = BLACK
 
     player = random.choice([computer_player, human_player])
-    # player = human_player
-    # player = computer_player
     state = (board, player)
 
     while not check_win(board, BLACK) and not check_win(board, WHITE):
