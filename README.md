@@ -80,9 +80,9 @@ Installation
    git clone https://github.com/6abriel1chiro/teeko-intelligent-game
    ```
 
-2. Install requirements
+2. enter folder and run game.py
    ```py
-   pip install -r requirements.txt
+   python3 game.py
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -113,10 +113,55 @@ Tiles in a Line: If there are three tiles in a line in one direction, the next t
 
 Adjacent Tiles – Tiles that are close together have a better chance of forming a square. Therefore, we can assign a higher value to tiles that are adjacent to other tiles.
 
-Blocked Tokens: If a token is blocked and cannot move in any direction, it is less valuable than a token that can move in multiple directions. Therefore, we can assign a lower value to the locked tokens.
-
 - EXPERIMENTS
-- CONCLUSION
+
+  - Alpha Beta Pruning
+
+    - turns vs prunes graph:  
+       #########
+    - turns vs prunes (right to left):  
+       #########
+
+  - Alpha Beta with cutoff :
+
+    - First heuristic : weighted board
+    <a href="https://github.com/6abriel1chiro/teeko-intelligent-game">
+    <img src="./images/test1heur1.png" alt="test1" width="80" height="80">
+    </a>
+    <a href="https://github.com/6abriel1chiro/teeko-intelligent-game">
+    <img src="./images/test1heur2.png" alt="test2" width="80" height="80">
+    </a>
+    </div>
+
+    - Second heuristic : adjacencies + weighted board
+      <div align="center">
+    <a href="https://github.com/6abriel1chiro/teeko-intelligent-game">
+      <img src="./images/test1heur2.png" alt="test1" width="80" height="80">
+    </a>
+      <a href="https://github.com/6abriel1chiro/teeko-intelligent-game">
+      <img src="./images/test2heur2.png.png" alt="test2" width="80" height="80">
+    </a>
+    </div>
+
+- CONCLUSIONS
+  - heuristic 1 vs 2
+    second heuristic seems to show a much better performance and higher chances to win against humans also when playing against an AI with the first heuristic, it always gets the win
+  - alpha beta pruning (no cutoff)
+    ######## recursivity limits made impossible to test this algorithm
+  - MinMax + α −βpruning and MinMaxWithDepth(cut −off) (turns vs expanded states)
+
+
+- EXTRA TEST(higher depths for alpha beta w/ depth):
+  - The alpha-beta prunning with cutoff algortimh was tested with different levels of maximum depth. The resulst go as follows:
+    - Depth 3: 3 wins
+    - Depth 5: 2 losses
+    - Depth 7: 2 losses
+  - On level 5 and level 7 depth the AI lost due to moving the incorrect pieces when there was a clear winning condition.
+  - On level 3 the AI made smarter moves choosing the best option available and even blocking some of the opponent winnning moves.
+  - It was decided to not go further than 7 levels of depth due to the dramatic time increase that the AI took to make the next move, for it to make the same move it would've  made on depth 3 or 5.
+  - The game tests evidence can be found on the folder "tests".
+
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 <!-- CONTACT -->

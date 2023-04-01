@@ -166,7 +166,7 @@ def get_user_move(state):
         try:
             move_str = input('Enter your move (e.g., C2 SE): ')
             col, row, dir = traduction_move(move_str.upper())
-            if board[row][col] == None or board[row][col] == get_opponent(player):
+            if board[col][row] == None or board[col][row] == get_opponent(player):
                 return False, 0
             return True, move_str.upper()
         except ValueError:
@@ -252,7 +252,7 @@ def evaluation_function(state):
                 player2_score += weights[i][j]
                 
     adj1, adj2 = find_adjacencies(board)
-    value = (player1_score-adj1) - (player2_score-adj2)
+    value = (player1_score+adj1) - (player2_score-adj2)
     return value
 
 # def evaluation_function(state):
@@ -336,7 +336,7 @@ def get_computer_move(state):
     if not available_moves:
         return None
 
-    max_depth = 3
+    max_depth = 7
     _, best_move,counter = AlphaBetaPrunningDepth(state, max_depth, float(
         '-inf'), float('inf'), True, available_moves,counter)
     print("Number of states expanded: ", counter)

@@ -1,0 +1,121 @@
+A   B   C   D
+1  B |   |   | W
+  ---|---|---|---
+2    | B | W |  
+  ---|---|---|---
+3    | W | B |  
+  ---|---|---|---
+4  W |   |   | B
+Number of states expanded:  575
+Computer's move:  C3 E
+   A   B   C   D
+1  B |   |   | W
+  ---|---|---|---
+2    | B | W |  
+  ---|---|---|---
+3    | W |   | B
+  ---|---|---|---
+4  W |   |   | B
+Number of states expanded:  686
+Computer's move:  D1 S
+   A   B   C   D
+1  B |   |   |  
+  ---|---|---|---
+2    | B | W | W
+  ---|---|---|---
+3    | W |   | B
+  ---|---|---|---
+4  W |   |   | B
+   A   B   C   D
+1  B |   |   |  
+  ---|---|---|---
+2    | B | W | W
+  ---|---|---|---
+3    | W |   | B
+  ---|---|---|---
+4  W |   |   | B
+Number of states expanded:  324
+Computer's move:  A1 E
+   A   B   C   D
+1    |   |   | B
+  ---|---|---|---
+2    | B | W | W
+  ---|---|---|---
+3    | W |   | B
+  ---|---|---|---
+4  W |   |   | B
+Number of states expanded:  533
+Computer's move:  A4 N
+   A   B   C   D
+1  W |   |   | B
+  ---|---|---|---
+2    | B | W | W
+  ---|---|---|---
+3    | W |   | B
+  ---|---|---|---
+4    |   |   | B
+   A   B   C   D
+1  W |   |   | B
+  ---|---|---|---
+2  W | B | W | W
+  ---|---|---|---
+3    | W |   | B
+  ---|---|---|---
+4    |   |   | B
+Number of states expanded:  236
+Computer's move:  D4 W
+   A   B   C   D
+1  W |   |   | B
+  ---|---|---|---
+2  W | B | W | W
+  ---|---|---|---
+3    | W |   | B
+  ---|---|---|---
+4  B |   |   |  
+Number of states expanded:  511
+Computer's move:  A1 E
+   A   B   C   D
+1    |   | W | B
+  ---|---|---|---
+2  W | B | W | W
+  ---|---|---|---
+3    | W |   | B
+  ---|---|---|---
+4  B |   |   |  
+   A   B   C   D
+1    | W | W | B
+  ---|---|---|---
+2  W | B | W | W
+  ---|---|---|---
+3    | W |   | B
+  ---|---|---|---
+4  B |   |   |  
+Number of states expanded:  268
+Computer's move:  B2 SE
+   A   B   C   D
+1    | W | W | B
+  ---|---|---|---
+2  W |   | W | W
+  ---|---|---|---
+3    | W |   | B
+  ---|---|---|---
+4  B |   |   | B
+Number of states expanded:  432
+Computer's move:  B1 S
+   A   B   C   D
+1    |   | W | B
+  ---|---|---|---
+2  W | W | W | W
+  ---|---|---|---
+3    | W |   | B
+  ---|---|---|---
+4  B |   |   | B
+   A   B   C   D
+1    |   | W | B
+  ---|---|---|---
+2  W | W | W | W
+  ---|---|---|---
+3    | W |   | B
+  ---|---|---|---
+4  B |   |   | B
+Game over! Winner:  W

@@ -1,0 +1,181 @@
+   A   B   C   D
+1  B | W |   |
+  ---|---|---|---
+2    | B | W |
+  ---|---|---|---
+3    | W | B |
+  ---|---|---|---
+4  W |   |   | B
+Enter your move (e.g., C2 SE): a1 s
+   A   B   C   D
+1    | W |   |
+  ---|---|---|---
+2    | B | W |
+  ---|---|---|---
+3  B | W | B |
+  ---|---|---|---
+4  W |   |   | B
+Number of states expanded:  451
+Computer's move:  C2 N
+   A   B   C   D
+1    | W | W |
+  ---|---|---|---
+2    | B |   |
+  ---|---|---|---
+3  B | W | B |
+  ---|---|---|---
+4  W |   |   | B
+Enter your move (e.g., C2 SE): b2 ne
+   A   B   C   D
+1    | W | W |
+  ---|---|---|---
+2    | B |   |
+  ---|---|---|---
+3  B | W | B |
+  ---|---|---|---
+4  W |   |   | B
+Number of states expanded:  476
+Computer's move:  B1 SE
+   A   B   C   D
+1    |   | W |
+  ---|---|---|---
+2    | B |   |
+  ---|---|---|---
+3  B | W | B | W
+  ---|---|---|---
+4  W |   |   | B
+Enter your move (e.g., C2 SE): b2 nw
+   A   B   C   D
+1  B |   | W |
+  ---|---|---|---
+2    |   |   |
+  ---|---|---|---
+3  B | W | B | W
+  ---|---|---|---
+4  W |   |   | B
+Number of states expanded:  407
+Computer's move:  C1 SW
+   A   B   C   D
+1  B |   |   |
+  ---|---|---|---
+2    | W |   |
+  ---|---|---|---
+3  B | W | B | W
+  ---|---|---|---
+4  W |   |   | B
+Enter your move (e.g., C2 SE): c3 sw
+   A   B   C   D
+1  B |   |   |
+  ---|---|---|---
+2    | W |   |
+  ---|---|---|---
+3  B | W |   | W
+  ---|---|---|---
+4  W | B |   | B
+Number of states expanded:  696
+Computer's move:  D3 W
+   A   B   C   D
+1  B |   |   |
+  ---|---|---|---
+2    | W |   |
+  ---|---|---|---
+3  B | W | W |
+  ---|---|---|---
+4  W | B |   | B
+Enter your move (e.g., C2 SE): d4 n
+   A   B   C   D
+1  B |   |   | B
+  ---|---|---|---
+2    | W |   |
+  ---|---|---|---
+3  B | W | W |
+  ---|---|---|---
+4  W | B |   |
+Number of states expanded:  457
+Computer's move:  B3 NE
+   A   B   C   D
+1  B |   |   | B
+  ---|---|---|---
+2    | W | W |
+  ---|---|---|---
+3  B |   | W |
+  ---|---|---|---
+4  W | B |   |
+Enter your move (e.g., C2 SE): b4 n
+   A   B   C   D
+1  B |   |   | B
+  ---|---|---|---
+2    | W | W |
+  ---|---|---|---
+3  B | B | W |
+  ---|---|---|---
+4  W |   |   |
+Number of states expanded:  684
+Computer's move:  A4 E
+   A   B   C   D
+1  B |   |   | B
+  ---|---|---|---
+2    | W | W |
+  ---|---|---|---
+3  B | B | W |
+  ---|---|---|---
+4    |   |   | W
+Enter your move (e.g., C2 SE): a3 s
+   A   B   C   D
+1  B |   |   | B
+  ---|---|---|---
+2    | W | W |
+  ---|---|---|---
+3    | B | W |
+  ---|---|---|---
+4  B |   |   | W
+Number of states expanded:  1038
+Computer's move:  D4 W
+   A   B   C   D
+1  B |   |   | B
+  ---|---|---|---
+2    | W | W |
+  ---|---|---|---
+3    | B | W |
+  ---|---|---|---
+4  B | W |   |
+Enter your move (e.g., C2 SE): d4 s
+Enter your move (e.g., C2 SE): d1 s
+   A   B   C   D
+1  B |   |   |
+  ---|---|---|---
+2    | W | W |
+  ---|---|---|---
+3    | B | W |
+  ---|---|---|---
+4  B | W |   | B
+Number of states expanded:  621
+Computer's move:  B2 NE
+   A   B   C   D
+1  B |   | W |
+  ---|---|---|---
+2    |   | W |
+  ---|---|---|---
+3    | B | W |
+  ---|---|---|---
+4  B | W |   | B
+Enter your move (e.g., C2 SE): a1 s
+   A   B   C   D
+1    |   | W |
+  ---|---|---|---
+2    |   | W |
+  ---|---|---|---
+3  B | B | W |
+  ---|---|---|---
+4  B | W |   | B
+Number of states expanded:  499
+Computer's move:  B4 E
+   A   B   C   D
+1    |   | W |
+  ---|---|---|---
+2    |   | W |
+  ---|---|---|---
+3  B | B | W |
+  ---|---|---|---
+4  B |   | W | B
+Game over! Winner:  W
