@@ -1,6 +1,14 @@
 # Define the player colors
 BLACK = 'B'
 WHITE = 'W'
+EMPTY = ' '
+
+
+def traduction_move(move):
+    col = ord(move[0]) - ord('A')
+    row = int(move[1]) - 1
+    direction = move[3:]
+    return row, col, direction
 
 
 def get_opponent(player):
@@ -11,7 +19,6 @@ def get_opponent(player):
 
 
 # Define the function for making a move on the board
-
 
 def directions_to_move(direction, new_board, row_copy, col_copy, previous_position, player):
     if direction == 'NW':
@@ -89,10 +96,7 @@ def directions_to_move(direction, new_board, row_copy, col_copy, previous_positi
 
 
 def make_move(board, move, player):
-    col = ord(move[0]) - ord('A')
-    row = int(move[1]) - 1
-    direction = move[3:]
-
+    row, col, direction = traduction_move(move)
     row_copy, col_copy = row, col
     previous_position = [row_copy, col_copy]
 
@@ -103,3 +107,50 @@ def make_move(board, move, player):
     new_board = [row[:] for row in board]
 
     return directions_to_move(direction, new_board, row_copy, col_copy, previous_position, player)
+
+
+def forms_corners(board, player):
+
+    corners = [(0, 0), (0, 3), (3, 0), (3, 3)]
+    for corner in corners:
+        if board[corner[0]][corner[1]] != player:
+            return False
+    return True
+
+
+def forms_square(board, player):
+    # Check horizontal squares
+    for i in range(3):
+        for j in range(3):
+            if board[i][j] == player and board[i][j+1] == player and \
+                    board[i+1][j] == player and board[i+1][j+1] == player:
+                return True
+
+    # Check vertical squares
+    for i in range(3):
+        for j in range(3):
+            if board[i][j] == player and board[i+1][j] == player and \
+                    board[i][j+1] == player and board[i+1][j+1] == player:
+                return True
+
+    # Check diagonal squares
+    if board[0][0] == player and board[1][1] == player and \
+            board[0][1] == player and board[1][0] == player:
+        return True
+    if board[0][2] == player and board[1][1] == player and \
+            board[0][3] == player and board[1][2] == player:
+        return True
+    if board[1][0] == player and board[2][1] == player and \
+            board[1][1] == player and board[2][0] == player:
+        return True
+    if board[1][2] == player and board[2][1] == player and \
+            board[1][3] == player and board[2][2] == player:
+        return True
+    if board[2][0] == player and board[3][1] == player and \
+            board[2][1] == player and board[3][0] == player:
+        return True
+    if board[2][2] == player and board[3][1] == player and \
+            board[2][3] == player and board[3][2] == player:
+        return True
+
+    return False

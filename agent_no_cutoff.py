@@ -50,7 +50,6 @@ def find_adjacencies(board):
 
 
 def terminal_test(board, player):
-
     for i in range(4):
         if board[i] == [player, player, player, player]:
             return True

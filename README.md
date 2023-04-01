@@ -125,15 +125,30 @@ Adjacent Tiles – Tiles that are close together have a better chance of forming
   - Alpha Beta with cutoff :
 
     - First heuristic : weighted board
-
+    <a href="https://github.com/6abriel1chiro/teeko-intelligent-game">
+    <img src="./images/test1heur1.png" alt="test1" width="80" height="80">
+    </a>
+    <a href="https://github.com/6abriel1chiro/teeko-intelligent-game">
+    <img src="./images/test1heur2.png" alt="test2" width="80" height="80">
+    </a>
+    </div>
     - Second heuristic : adjacencies + weighted board
+      <div align="center">
+    <a href="https://github.com/6abriel1chiro/teeko-intelligent-game">
+      <img src="./images/test1heur2.png" alt="test1" width="80" height="80">
+    </a>
+      <a href="https://github.com/6abriel1chiro/teeko-intelligent-game">
+      <img src="./images/test2heur2.png.png" alt="test2" width="80" height="80">
+    </a>
+    </div>
 
 - CONCLUSIONS
   - heuristic 1 vs 2
-    ########
-  - alpga beta pruning (no cutoff)
-    ########
-  - MinMax + α −βpruning & MinMaxWithDepth(cut −off) (turns vs expanded states)
+    second heuristic seems to show a much better performance and higher chances to win against humans also when playing against an AI with the first heuristic, it always gets the win
+  - alpha beta pruning (no cutoff)
+    ######## recursivity limits made impossible to test this algorithm
+  - MinMax + α −βpruning and MinMaxWithDepth(cut −off) (turns vs expanded states)
+- extra tests (higher depths for alpha beta w/ depth)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 <!-- CONTACT -->
