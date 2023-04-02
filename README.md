@@ -126,16 +126,16 @@ Adjacent Tiles – Tiles that are close together have a better chance of forming
 
     - First heuristic : weighted board
     <a href="https://github.com/6abriel1chiro/teeko-intelligent-game">
-    <img src="./images/test1heur1.png" alt="test1" width="80" height="80">
+    <img src="./images/test1heur1.png" alt="test1" >
     </a>
     <a href="https://github.com/6abriel1chiro/teeko-intelligent-game">
-    <img src="./images/test1heur2.png" alt="test2" width="80" height="80">
+    <img src="./images/test1heur2.png" alt="test2" >
     </a>
     </div>
     - Second heuristic : adjacencies + weighted board
       <div align="center">
     <a href="https://github.com/6abriel1chiro/teeko-intelligent-game">
-      <img src="./images/test1heur2.png" alt="test1" width="80" height="80">
+      <img src="./images/test1heur2.png" alt="test1">
     </a>
       <a href="https://github.com/6abriel1chiro/teeko-intelligent-game">
       <img src="./images/test2heur2.png" alt="test2" >
