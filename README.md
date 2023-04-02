@@ -163,6 +163,7 @@ Adjacent Tiles – Tiles that are close together have a better chance of forming
     In the algorithm , the aim is to minimize the number of nodes to be explored, so if nodes leading to suboptimal solutions are explored first, this may result in a higher number of prunings and thus a reduction in the total number of nodes explored.
 
 - EXTRA TEST(higher depths for alpha beta w/ depth):
+
   - The alpha-beta prunning with cutoff algortimh was tested with different levels of maximum depth. The resulst go as follows:
     - Depth 3: 3 wins
     - Depth 5: 2 losses
@@ -172,12 +173,20 @@ Adjacent Tiles – Tiles that are close together have a better chance of forming
   - It was decided to not go further than 7 levels of depth due to the dramatic time increase that the AI took to make the next move, for it to make the same move it would've made on depth 3 or 5.
   - The game tests evidence can be found on the folder "tests".
 
+  - In the Minimax algorithm with Alpha-Beta Pruning, increasing the maximum search depth does not always leads to finding better solutions. In fact, as the search depth is increased, the search tree becomes larger and more complex, which can make it difficult to explore all branches and result into a less effective search.
+
+  In addition, Alpha-Beta Pruning is used to reduce the number of nodes to be explored during the search, but this technique does not guarantee the elimination of all useless nodes. Therefore, even if the number of nodes explored can be reduced, there are still a significant number of nodes to be explored and this can be quite computationally expensive.
+
+  Also, it should be noted that in some cases, a more sophisticated strategy such as Monte Carlo Tree Search may be more effective rather than simply increasing the search depth.
+
+  ref: https://en.wikipedia.org/wiki/Monte_Carlo_tree_search
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 <!-- CONTACT -->
 
 ## Contact
 
-Name - [@6abriel1chiro](https://twitter.com/6abriel1chiro) - gabriel.balderrama@ucb.edu.bo
+Names - [@6abriel1chiro](https://twitter.com/6abriel1chiro) - gabriel.balderrama@ucb.edu.bo - [@E-Doggo](https://github.com/E-Doggo) - rodrigo.guardia@ucb.edu.bo - [@AngyEncinas](https://github.com/angyEncinas) - angy.encinas@ucb.edu.bo
 
 Project Link: [https://github.com/6abriel1chiro/teeko-intelligent-game](https://github.com/6abriel1chiro/teeko-intelligent-game)
 
