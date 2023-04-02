@@ -138,7 +138,7 @@ Adjacent Tiles – Tiles that are close together have a better chance of forming
       <img src="./images/test1heur2.png" alt="test1" width="80" height="80">
     </a>
       <a href="https://github.com/6abriel1chiro/teeko-intelligent-game">
-      <img src="./images/test2heur2.png.png" alt="test2" width="80" height="80">
+      <img src="./images/test2heur2.png" alt="test2" >
     </a>
     </div>
 
