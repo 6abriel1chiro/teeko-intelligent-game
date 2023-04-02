@@ -1,0 +1,105 @@
+   A   B   C   D
+1  B |   |   | W
+  ---|---|---|---
+2    | B | W |
+  ---|---|---|---
+3    | W | B |
+  ---|---|---|---
+4  W |   |   | B
+Choose your color ('B' for Black, 'W' for White): A1 S
+Choose your color ('B' for Black, 'W' for White): B
+Enter your move (e.g., C2 SE): A1 S
+   A   B   C   D
+1    |   |   | W
+  ---|---|---|---
+2    | B | W |
+  ---|---|---|---
+3  B | W | B |
+  ---|---|---|---
+4  W |   |   | B
+Number of states expanded:  265
+Computer's move:  D1 S
+   A   B   C   D
+1    |   |   |
+  ---|---|---|---
+2    | B | W |
+  ---|---|---|---
+3  B | W | B | W
+  ---|---|---|---
+4  W |   |   | B
+Enter your move (e.g., C2 SE): B2 NE
+   A   B   C   D
+1    |   | B |
+  ---|---|---|---
+2    |   | W |
+  ---|---|---|---
+3  B | W | B | W
+  ---|---|---|---
+4  W |   |   | B
+Number of states expanded:  420
+Computer's move:  A4 E
+   A   B   C   D
+1    |   | B |
+  ---|---|---|---
+2    |   | W |
+  ---|---|---|---
+3  B | W | B | W
+  ---|---|---|---
+4    |   | W | B
+Enter your move (e.g., C2 SE): C3 NW
+   A   B   C   D
+1  B |   | B |
+  ---|---|---|---
+2    |   | W |
+  ---|---|---|---
+3  B | W |   | W
+  ---|---|---|---
+4    |   | W | B
+Number of states expanded:  492
+Computer's move:  D3 W
+   A   B   C   D
+1  B |   | B |
+  ---|---|---|---
+2    |   | W |
+  ---|---|---|---
+3  B | W | W |
+  ---|---|---|---
+4    |   | W | B
+Enter your move (e.g., C2 SE): D4 N
+   A   B   C   D
+1  B |   | B | B
+  ---|---|---|---
+2    |   | W |
+  ---|---|---|---
+3  B | W | W |
+  ---|---|---|---
+4    |   | W |
+Number of states expanded:  724
+Computer's move:  C3 NW
+   A   B   C   D
+1  B |   | B | B
+  ---|---|---|---
+2    | W | W |
+  ---|---|---|---
+3  B | W |   |
+  ---|---|---|---
+4    |   | W |
+Enter your move (e.g., C2 SE): D1 S
+   A   B   C   D
+1  B |   | B |
+  ---|---|---|---
+2    | W | W |
+3  B | W |   |
+  ---|---|---|---
+4    |   | W | B
+Number of states expanded:  371
+Computer's move:  C4 N
+   A   B   C   D
+1  B |   | B |
+  ---|---|---|---
+2    | W | W |
+  ---|---|---|---
+3  B | W | W |
+  ---|---|---|---
+4    |   |   | B
+Game over! Winner:  W

@@ -1,0 +1,116 @@
+   A   B   C   D
+1  B |   |   | W
+  ---|---|---|---
+2    | B | W |
+  ---|---|---|---
+3    | W | B |
+  ---|---|---|---
+4  W |   |   | B
+Choose your color ('B' for Black, 'W' for White): c3 sw
+Choose your color ('B' for Black, 'W' for White): b
+Number of states expanded:  393
+Computer's move:  D1 W
+   A   B   C   D
+1  B | W |   |
+  ---|---|---|---
+2    | B | W |
+  ---|---|---|---
+3    | W | B |
+  ---|---|---|---
+4  W |   |   | B
+Enter your move (e.g., C2 SE): c3 sw
+   A   B   C   D
+1  B | W |   |
+  ---|---|---|---
+2    | B | W |
+  ---|---|---|---
+3    | W |   |
+  ---|---|---|---
+4  W | B |   | B
+Number of states expanded:  412
+Computer's move:  B1 SW
+   A   B   C   D
+1  B |   |   |
+  ---|---|---|---
+2  W | B | W |
+  ---|---|---|---
+3    | W |   |
+  ---|---|---|---
+4  W | B |   | B
+Enter your move (e.g., C2 SE): b2 se
+   A   B   C   D
+1  B |   |   |
+  ---|---|---|---
+2  W |   | W |
+  ---|---|---|---
+3    | W | B |
+  ---|---|---|---
+4  W | B |   | B
+Number of states expanded:  370
+Computer's move:  A2 E
+   A   B   C   D
+1  B |   |   |
+  ---|---|---|---
+2    | W | W |
+  ---|---|---|---
+3    | W | B |
+  ---|---|---|---
+4  W | B |   | B
+Enter your move (e.g., C2 SE): c3 s
+   A   B   C   D
+1  B |   |   |
+  ---|---|---|---
+2    | W | W |
+  ---|---|---|---
+3    | W |   |
+  ---|---|---|---
+4  W | B | B | B
+Number of states expanded:  564
+Computer's move:  A4 N
+   A   B   C   D
+1  B |   |   |
+  ---|---|---|---
+2  W | W | W |
+  ---|---|---|---
+3    | W |   |
+  ---|---|---|---
+4    | B | B | B
+Enter your move (e.g., C2 SE): a1 e
+   A   B   C   D
+1    |   |   | B
+  ---|---|---|---
+2  W | W | W |
+  ---|---|---|---
+3    | W |   |
+  ---|---|---|---
+4    | B | B | B
+Number of states expanded:  1039
+Computer's move:  B2 SE
+   A   B   C   D
+1    |   |   | B
+  ---|---|---|---
+2  W |   | W |
+  ---|---|---|---
+3    | W | W |
+  ---|---|---|---
+4    | B | B | B
+Enter your move (e.g., C2 SE): d1 w
+   A   B   C   D
+1  B |   |   |
+  ---|---|---|---
+2  W |   | W |
+  ---|---|---|---
+3    | W | W |
+  ---|---|---|---
+4    | B | B | B
+Number of states expanded:  161
+Computer's move:  A2 E
+   A   B   C   D
+1  B |   |   |
+  ---|---|---|---
+2    | W | W |
+  ---|---|---|---
+3    | W | W |
+  ---|---|---|---
+4    | B | B | B
+Game over! Winner:  W

@@ -145,7 +145,7 @@ def AlphaBetaPrunningDepth(state, depth, alpha, beta, maximizing_player, availab
     counter += 1
 
     if depth == 0 or (terminal_test(state[0], BLACK) > 0) or (terminal_test(state[0], WHITE) > 0):
-        return first_evaluation_function(state), 0, counter
+        return second_evaluation_function(state), 0, counter
 #       return first_evaluation_function(state), 0, counter
 
     if maximizing_player:

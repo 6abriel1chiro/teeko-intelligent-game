@@ -126,6 +126,11 @@ Adjacent Tiles – Tiles that are close together have a better chance of forming
       <img src="./images/TURNOVSESTADO.PNG" alt="states" >
       </a>
 
+    - left vs right
+      <a href="https://github.com/6abriel1chiro/teeko-intelligent-game">
+      <img src="./images/PODASCOMPARACION.PNG" alt="states" >
+      </a>
+
   - Alpha Beta with cutoff :
 
     - First heuristic : weighted board
@@ -149,12 +154,24 @@ Adjacent Tiles – Tiles that are close together have a better chance of forming
     </div>
 
 - CONCLUSIONS
+
   - heuristic 1 vs 2
     second heuristic seems to show a much better performance and higher chances to win against humans also when playing against an AI with the first heuristic, it always gets the win
   - alpha beta pruning (no cutoff)
     recursivity limits made impossible to test this algorithm, but tests were made with cutoff and longer depth .
-  - MinMax + α −βpruning and MinMaxWithDepth(cut −off) (turns vs expanded states)
-- extra tests (higher depths for alpha beta w/ depth) - algorithm seems to work better with lower depths, this might be because of the amount of recursive calls it requires with bigger depths, since it starts expaning thousands of of states to get to a terminal onw with only a depth of three
+    State expansion comparision by left vs right:
+    In the algorithm , the aim is to minimize the number of nodes to be explored, so if nodes leading to suboptimal solutions are explored first, this may result in a higher number of prunings and thus a reduction in the total number of nodes explored.
+
+- EXTRA TEST(higher depths for alpha beta w/ depth):
+  - The alpha-beta prunning with cutoff algortimh was tested with different levels of maximum depth. The resulst go as follows:
+    - Depth 3: 3 wins
+    - Depth 5: 2 losses
+    - Depth 7: 2 losses
+  - On level 5 and level 7 depth the AI lost due to moving the incorrect pieces when there was a clear winning condition.
+  - On level 3 the AI made smarter moves choosing the best option available and even blocking some of the opponent winnning moves.
+  - It was decided to not go further than 7 levels of depth due to the dramatic time increase that the AI took to make the next move, for it to make the same move it would've made on depth 3 or 5.
+  - The game tests evidence can be found on the folder "tests".
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 <!-- CONTACT -->
 

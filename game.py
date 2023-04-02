@@ -59,11 +59,17 @@ def display_board(board):
 # Define the function for getting user input for the move
 
 
-def get_user_move():
+def get_user_move(state):
+    board = state[0]
+    player = state[1]
+
     while True:
         try:
             move_str = input('Enter your move (e.g., C2 SE): ')
-            return move_str.upper()
+            col, row, dir = traduction_move(move_str.upper())
+            if board[col][row] == None or board[col][row] == get_opponent(player):
+                return False, 0
+            return True, move_str.upper()
         except ValueError:
             print('Invalid move. Please try again.')
 
@@ -169,8 +175,10 @@ def play_game():
     state = (board, player)
 
     while not check_win(board, BLACK) and not check_win(board, WHITE):
+        mov_valido = False
         if player == human_player:
-            move = get_user_move()
+            while (mov_valido == False):
+                mov_valido, move = get_user_move(state)
         else:
             move = get_computer_move(state)
             print("Computer's move: ", move)
@@ -209,8 +217,10 @@ def play_game_no_cutoff():
     state = (board, player)
 
     while not check_win(board, BLACK) and not check_win(board, WHITE):
+        mov_valido = False
         if player == human_player:
-            move = get_user_move()
+            while (mov_valido == False):
+                mov_valido, move = get_user_move(state)
         else:
             move = get_computer_move_no_cutoff(state)
             print("Computer's move: ", move)

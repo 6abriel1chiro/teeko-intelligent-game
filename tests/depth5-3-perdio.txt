@@ -1,0 +1,86 @@
+   A   B   C   D
+1  B        W
+  ------------
+2     B  W 
+  ------------
+3     W  B 
+  ------------
+4  W        B
+Choose your color ('B' for Black, 'W' for White) B
+Number of states expanded  9358
+Computer's move  D1 W
+   A   B   C   D
+1  B  W    
+  ------------
+2     B  W 
+  ------------
+3     W  B 
+  ------------
+4  W        B
+Enter your move (e.g., C2 SE) d4 n
+   A   B   C   D
+1  B  W     B
+  ------------
+2     B  W 
+  ------------
+3     W  B 
+  ------------
+4  W       
+Number of states expanded  9851
+Computer's move  A4 N
+   A   B   C   D
+1  B  W     B
+  ------------
+2  W  B  W 
+  ------------
+3     W  B 
+  ------------
+4          
+Enter your move (e.g., C2 SE) b2 sw
+   A   B   C   D
+1  B  W     B
+  ------------
+2  W     W 
+  ------------
+3  B  W  B 
+  ------------
+4          
+Number of states expanded  2073
+Computer's move  B1 S
+   A   B   C   D
+1  B        B
+  ------------
+2  W  W  W 
+  ------------
+3  B  W  B 
+  ------------
+4          
+Enter your move (e.g., C2 SE) c3 se
+   A   B   C   D
+1  B        B
+  ------------
+2  W  W  W 
+  ------------
+3  B  W    
+  ------------
+4           B
+Number of states expanded  4692
+Computer's move  A2 NE
+   A   B   C   D
+1  B  W     B
+  ------------
+2     W  W 
+  ------------
+3  B  W    
+  ------------
+4           B
+Enter your move (e.g., C2 SE) a3 s
+   A   B   C   D
+1  B  W     B
+  ------------
+2     W  W 
+  ------------
+3     W    
+  ------------
+4  B        B
+Game over! Winner  B
