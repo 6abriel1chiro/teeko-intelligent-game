@@ -152,8 +152,6 @@ def get_computer_move_no_cutoff(state):
 
 
 # Define the function for playing the game
-
-
 def play_game():
     board = create_board()
     display_board(board)
@@ -180,7 +178,10 @@ def play_game():
             while (mov_valido == False):
                 mov_valido, move = get_user_move(state)
         else:
-            move = get_computer_move(state)
+            if computer_player == BLACK:
+                move = get_computer_move(state)
+            else:
+                move = get_computer_move(state, BLACK)
             print("Computer's move: ", move)
 
         try:
